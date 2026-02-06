@@ -270,7 +270,7 @@
     </style>
 </head>
 <body>
-    <h1>Mythos Kleist – Deutungsrad</h1>
+    <h1>Mythos Kleist</h1>
     <p class="subtitle">Jede Epoche vereinnahmte Kleist anders und wählte die passenden Zitate aus dem „Prinz Friedrich von Homburg". Drehen Sie die untere Scheibe, um zu sehen, wie dieselben Worte völlig unterschiedlich gedeutet wurden.</p>
     
     <div class="container">
@@ -359,193 +359,188 @@
         Drehen Sie die untere (helle) Scheibe mit der Maus oder verwenden Sie die Buttons. Die Jahreszahlen am Rand zeigen, welche Epoche gerade sichtbar ist. Die Inhalte in den drei Fenstern ändern sich entsprechend.
     </p>
     
-    <script>
-        var bottomDisc = document.getElementById('bottomDisc');
-        var currentSegmentDisplay = document.getElementById('currentSegment');
-        var keywordText = document.getElementById('keywordText');
-        var quoteText = document.getElementById('quoteText');
-        var attributionText = document.getElementById('attributionText');
-        
-        var segments = [
-            {
-                angle: 0,
-                period: '1871-1918',
-                keyword: 'Der Preuße',
-                quote: '„In Staub mit allen Feinden Brandenburgs!"',
-                attribution: 'Nach der Reichsgründung 1871 wurde Kleist als preußischer Dichter vereinahmt. Der „Prinz von Homburg" galt als Drama über Vaterlandstreue und den Kampf gegen Preußens Feinde. Dass der Prinz eigentlich gegen Befehle verstößt, wurde ausgeblendet.'
-            },
-            {
-                angle: 60,
-                period: 'Um 1900',
-                keyword: 'Der Traditionsbrecher',
-                quote: '„Auf Ordr'? [...] Hast du sie noch vom Herzen nicht empfangen?"',
-                attribution: 'Die literarische Avantgarde um 1900 feierte Kleist als Rebellen gegen klassische Normen. Der Prinz von Homburg wurde zum Vorbild für alle, die gegen starre Regeln aufbegehren."'
-            },
-            {
-                angle: 120,
-                period: '1920er Jahre',
-                keyword: 'Der pathologische Fall',
-                quote: '„Der junge Mann ist krank, so wahr ich lebe."',
-                attribution: 'Psychiater deuteten Kleists Werk als Ausdruck psychischer Krankheit. Der Prinz von Homburg erschien als zerrissene, irrationale Figur als ein Spiegelbild von Kleists angeblichem Wahnsinn. Diese Lesart prägte lange das Kleist-Bild.'
-            },
-            {
-                angle: 180,
-                period: 'Nach 1945',
-                keyword: 'Der Sprachkünstler',
-                quote: '„Was gilt [...] das Gesetz? [...] das heilge Kriegsrecht der Natur [...] Die Pflicht"',
-                attribution: 'Nach dem Zweiten Weltkrieg rückte die ästhetische Qualität in den Vordergrund. Kleists sprachliche Kunstfertigkeit, seine rhetorischen Strukturen und seine innovative Dramaturgie wurden bewundert – unabhängig von politischen Deutungen.'
-            },
-            {
-                angle: 240,
-                period: '1970er-80er',
-                keyword: 'Der Skeptiker',
-                quote: '„Was gilt auf dieser Welt mir das Gesetz?"',
-                attribution: 'Der Poststrukturalismus las Kleist als Kritiker aller Gewissheiten. Der Prinz von Homburg dekonstruierte Begriffe wie Pflicht, Gesetz und Ordnung. Kleist wurde zum Vordenker der Skepsis gegenüber großen Erzählungen.'
-            },
-            {
-                angle: 300,
-                period: 'Heute',
-                keyword: 'Der Vielschichtige',
-                quote: '„Die Pflicht will ich erfüllt sehn, die ich fühle!"',
-                attribution: 'Aktuelle Forschung liest Kleist aus vielen Perspektiven: Gender Studies, Postkolonialismus, Medientheorie. Der Prinz von Homburg wird nicht mehr auf eine Deutung festgelegt, sondern als vielschichtiger Text verstanden.'
-            }
-        ];
-        
-        var currentRotation = 0;
-        var currentSegmentIndex = 0;
-        var isDragging = false;
-        var startAngle = 0;
-        var currentAngle = 0;
-        
-        function updateDisplay() {
-            bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
-            var seg = segments[currentSegmentIndex];
-            currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
-            keywordText.textContent = seg.keyword;
-            quoteText.textContent = seg.quote;
-            attributionText.textContent = seg.attribution;
-            
-            // Update year label rotations to keep them upright
-            updateYearLabels();
+  <script>
+    var bottomDisc = document.getElementById('bottomDisc');
+    var currentSegmentDisplay = document.getElementById('currentSegment');
+    var keywordText = document.getElementById('keywordText');
+    var quoteText = document.getElementById('quoteText');
+    var attributionText = document.getElementById('attributionText');
+    
+    var segments = [
+        {
+            angle: 0,
+            period: '1871-1918',
+            keyword: 'Der Preuße',
+            quote: '„In Staub mit allen Feinden Brandenburgs!"',
+            attribution: 'Nach der Reichsgründung 1871 wurde Kleist als preußischer Dichter vereinahmt. Der „Prinz von Homburg" galt als Drama über Vaterlandstreue und den Kampf gegen Preußens Feinde. Dass der Prinz eigentlich gegen Befehle verstößt, wurde ausgeblendet.'
+        },
+        {
+            angle: 60,
+            period: 'Um 1900',
+            keyword: 'Der Traditionsbrecher',
+            quote: '„Auf Ordr\'? [...] Hast du sie noch vom Herzen nicht empfangen?"',
+            attribution: 'Die literarische Avantgarde um 1900 feierte Kleist als Rebellen gegen klassische Normen. Der Prinz von Homburg wurde zum Vorbild für alle, die gegen starre Regeln aufbegehren."'
+        },
+        {
+            angle: 120,
+            period: '1920er Jahre',
+            keyword: 'Der pathologische Fall',
+            quote: '„Der junge Mann ist krank, so wahr ich lebe."',
+            attribution: 'Psychiater deuteten Kleists Werk als Ausdruck psychischer Krankheit. Der Prinz von Homburg erschien als zerrissene, irrationale Figur als ein Spiegelbild von Kleists angeblichem Wahnsinn. Diese Lesart prägte lange das Kleist-Bild.'
+        },
+        {
+            angle: 180,
+            period: 'Nach 1945',
+            keyword: 'Der Sprachkünstler',
+            quote: '„Was gilt [...] das Gesetz? [...] das heilge Kriegsrecht der Natur [...] Die Pflicht"',
+            attribution: 'Nach dem Zweiten Weltkrieg rückte die ästhetische Qualität in den Vordergrund. Kleists sprachliche Kunstfertigkeit, seine rhetorischen Strukturen und seine innovative Dramaturgie wurden bewundert – unabhängig von politischen Deutungen.'
+        },
+        {
+            angle: 240,
+            period: '1970er-80er',
+            keyword: 'Der Skeptiker',
+            quote: '„Was gilt auf dieser Welt mir das Gesetz?"',
+            attribution: 'Der Poststrukturalismus las Kleist als Kritiker aller Gewissheiten. Der Prinz von Homburg dekonstruierte Begriffe wie Pflicht, Gesetz und Ordnung. Kleist wurde zum Vordenker der Skepsis gegenüber großen Erzählungen.'
+        },
+        {
+            angle: 300,
+            period: 'Heute',
+            keyword: 'Der Vielschichtige',
+            quote: '„Die Pflicht will ich erfüllt sehn, die ich fühle!"',
+            attribution: 'Aktuelle Forschung liest Kleist aus vielen Perspektiven: Gender Studies, Postkolonialismus, Medientheorie. Der Prinz von Homburg wird nicht mehr auf eine Deutung festgelegt, sondern als vielschichtiger Text verstanden.'
         }
+    ];
+    
+    var currentRotation = 0;
+    var currentSegmentIndex = 0;
+    var isDragging = false;
+    var startAngle = 0;
+    var currentAngle = 0;
+    
+    function updateDisplay() {
+        bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
+        var seg = segments[currentSegmentIndex];
+        currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
+        keywordText.textContent = seg.keyword;
+        quoteText.textContent = seg.quote;
+        attributionText.textContent = seg.attribution;
+        updateYearLabels();
+    }
+    
+    function updateYearLabels() {
+        var segmentElements = document.querySelectorAll('.segment');
+        var baseRotations = [0, 60, 120, 180, 240, 300];
         
-        function updateYearLabels() {
-            var segments = document.querySelectorAll('.segment');
-            var baseRotations = [0, 60, 120, 180, 240, 300]; // Base rotation of each segment
-            
-            for (var i = 0; i < segments.length; i++) {
-                var yearLabel = segments[i].querySelector('.year-label');
-                if (yearLabel) {
-                    // Counter-rotate: negate both the base segment rotation AND the current disc rotation
-                    var totalCounterRotation = -(baseRotations[i] + currentRotation);
-                    yearLabel.style.transform = 'translateX(-50%) rotate(' + totalCounterRotation + 'deg)';
-                }
+        for (var i = 0; i < segmentElements.length; i++) {
+            var yearLabel = segmentElements[i].querySelector('.year-label');
+            if (yearLabel) {
+                var totalCounterRotation = -(baseRotations[i] + currentRotation);
+                yearLabel.style.transform = 'translateX(-50%) rotate(' + totalCounterRotation + 'deg)';
             }
         }
-        
-        function rotateNext() {
-            currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
-            currentRotation = -segments[currentSegmentIndex].angle;
-            updateDisplay();
-        }
-        
-        function rotatePrev() {
-            currentSegmentIndex = (currentSegmentIndex - 1 + segments.length) % segments.length;
-            currentRotation = -segments[currentSegmentIndex].angle;
-            updateDisplay();
-        }
-        
-        // Mouse/Touch dragging
-        function getAngle(e) {
-            var rect = bottomDisc.getBoundingClientRect();
-            var centerX = rect.left + rect.width / 2;
-            var centerY = rect.top + rect.height / 2;
-            var x = (e.clientX || e.touches[0].clientX) - centerX;
-            var y = (e.clientY || e.touches[0].clientY) - centerY;
-            return Math.atan2(y, x) * 180 / Math.PI;
-        }
-        
-        bottomDisc.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            startAngle = getAngle(e) - currentRotation;
-        });
-        
-        bottomDisc.addEventListener('touchstart', function(e) {
-            isDragging = true;
-            startAngle = getAngle(e) - currentRotation;
-        });
-        
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            currentAngle = getAngle(e) - startAngle;
-            currentRotation = currentAngle;
-            bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
-            updateYearLabels();
-            
-            // Find closest segment
-            var normalizedAngle = ((-currentRotation % 360) + 360) % 360;
-            var closestIndex = 0;
-            var minDiff = 360;
-            for (var i = 0; i < segments.length; i++) {
-                var diff = Math.abs(normalizedAngle - segments[i].angle);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closestIndex = i;
-                }
-            }
-            currentSegmentIndex = closestIndex;
-            var seg = segments[currentSegmentIndex];
-            currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
-            keywordText.textContent = seg.keyword;
-            quoteText.textContent = seg.quote;
-            attributionText.textContent = seg.attribution;
-        });
-        
-        document.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
-            currentAngle = getAngle(e) - startAngle;
-            currentRotation = currentAngle;
-            bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
-            updateYearLabels();
-            
-            var normalizedAngle = ((-currentRotation % 360) + 360) % 360;
-            var closestIndex = 0;
-            var minDiff = 360;
-            for (var i = 0; i < segments.length; i++) {
-                var diff = Math.abs(normalizedAngle - segments[i].angle);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closestIndex = i;
-                }
-            }
-            currentSegmentIndex = closestIndex;
-            var seg = segments[currentSegmentIndex];
-            currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
-            keywordText.textContent = seg.keyword;
-            quoteText.textContent = seg.quote;
-            attributionText.textContent = seg.attribution;
-        });
-        
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                // Snap to nearest segment
-                currentRotation = -segments[currentSegmentIndex].angle;
-                updateDisplay();
-            }
-        });
-        
-        document.addEventListener('touchend', function() {
-            if (isDragging) {
-                isDragging = false;
-                currentRotation = -segments[currentSegmentIndex].angle;
-                updateDisplay();
-            }
-        });
-        
-        // Initialize
+    }
+    
+    // Make functions global so onclick works
+    window.rotateNext = function() {
+        currentSegmentIndex = (currentSegmentIndex + 1) % segments.length;
+        currentRotation = -segments[currentSegmentIndex].angle;
         updateDisplay();
-    </script>
+    };
+    
+    window.rotatePrev = function() {
+        currentSegmentIndex = (currentSegmentIndex - 1 + segments.length) % segments.length;
+        currentRotation = -segments[currentSegmentIndex].angle;
+        updateDisplay();
+    };
+    
+    function getAngle(e) {
+        var rect = bottomDisc.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        var x = (e.clientX || e.touches[0].clientX) - centerX;
+        var y = (e.clientY || e.touches[0].clientY) - centerY;
+        return Math.atan2(y, x) * 180 / Math.PI;
+    }
+    
+    bottomDisc.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startAngle = getAngle(e) - currentRotation;
+    });
+    
+    bottomDisc.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        startAngle = getAngle(e) - currentRotation;
+    });
+    
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        currentAngle = getAngle(e) - startAngle;
+        currentRotation = currentAngle;
+        bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
+        updateYearLabels();
+        
+        var normalizedAngle = ((-currentRotation % 360) + 360) % 360;
+        var closestIndex = 0;
+        var minDiff = 360;
+        for (var i = 0; i < segments.length; i++) {
+            var diff = Math.abs(normalizedAngle - segments[i].angle);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestIndex = i;
+            }
+        }
+        currentSegmentIndex = closestIndex;
+        var seg = segments[currentSegmentIndex];
+        currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
+        keywordText.textContent = seg.keyword;
+        quoteText.textContent = seg.quote;
+        attributionText.textContent = seg.attribution;
+    });
+    
+    document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        currentAngle = getAngle(e) - startAngle;
+        currentRotation = currentAngle;
+        bottomDisc.style.transform = 'rotate(' + currentRotation + 'deg)';
+        updateYearLabels();
+        
+        var normalizedAngle = ((-currentRotation % 360) + 360) % 360;
+        var closestIndex = 0;
+        var minDiff = 360;
+        for (var i = 0; i < segments.length; i++) {
+            var diff = Math.abs(normalizedAngle - segments[i].angle);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestIndex = i;
+            }
+        }
+        currentSegmentIndex = closestIndex;
+        var seg = segments[currentSegmentIndex];
+        currentSegmentDisplay.textContent = seg.period + ': ' + seg.keyword;
+        keywordText.textContent = seg.keyword;
+        quoteText.textContent = seg.quote;
+        attributionText.textContent = seg.attribution;
+    });
+    
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            currentRotation = -segments[currentSegmentIndex].angle;
+            updateDisplay();
+        }
+    });
+    
+    document.addEventListener('touchend', function() {
+        if (isDragging) {
+            isDragging = false;
+            currentRotation = -segments[currentSegmentIndex].angle;
+            updateDisplay();
+        }
+    });
+    
+    updateDisplay();
+</script>
 </body>
 
 </html>
+
